@@ -1,0 +1,14 @@
+{
+  "name": "implevit_enemies",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "slavikse <gslavikse@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "serve": "node ."
+  },
+  "dependencies": {
+    "socket.io-client": "^2.2.0"
+  }
+}

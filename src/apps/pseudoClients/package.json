@@ -1,0 +1,14 @@
+{
+  "name": "pseudo_clients",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "slavikse <gslavikse@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "serve": "node ."
+  },
+  "dependencies": {
+    "puppeteer": "^1.11.0"
+  }
+}

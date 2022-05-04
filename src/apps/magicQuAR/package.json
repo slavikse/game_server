@@ -1,0 +1,12 @@
+{
+  "name": "magicQuAR",
+  "version": "0.0.1",
+  "description": "Хостинг для игры. Исходники на github.",
+  "main": "index.js",
+  "author": "slavikse <slavikse@ya.ru>",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.7.0",
+    "koa-static": "^5.0.0"
+  }
+}
