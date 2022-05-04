@@ -1,0 +1,12 @@
+{
+  "name": "vr_room",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "author": "slavikse <slavikse@ya.ru>",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.13.4",
+    "koa-static": "^5.0.0"
+  }
+}
