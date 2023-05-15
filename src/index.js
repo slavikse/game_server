@@ -1,5 +1,4 @@
-const { io } = require('./setup');
-const { connection } = require('./engine');
-const { launcher } = require('./apps');
+const io = require('./setup');
+const connection = require('./connection');
 
-launcher({ io, connection });
+connection(io);

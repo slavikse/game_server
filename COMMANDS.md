@@ -2,37 +2,71 @@
 
 ### Подключение
 ```
-ssh root@134.0.117.200
+ssh slavikse@172.31.34.35
 ```
 
-### Обновление Game Server
+### Обновление Server & Client одной командой
 ```
-systemctl stop nodeserver.service &&
+cd /opt/game_server &&
+sudo git pull &&
+sudo npm i &&
+cd vr_rooms &&
+sudo git pull &&
+sudo npm i &&
+sudo npm run build
+```
+
+### Обновление systemd
+```
+sudo systemctl stop nodeserver
+
+sudo systemctl daemon-reload
+sudo systemctl stop nodeserver.service
+sudo systemctl start nodeserver.service
+sudo systemctl status nodeserver.service
+```
+
+---
+
+### Развёртывание Server & Client одной командой
+```
 cd /opt &&
-rm -rf game_server &&
-git clone https://github.com/slavikse/game_server.git &&
+sudo rm -rf game_server &&
+sudo git clone https://gitlab.int.netintel.ru/nymph/game_server.git &&
 cd game_server &&
-npm i
+sudo npm i &&
+sudo git clone https://gitlab.int.netintel.ru/nymph/vr_rooms.git &&
+cd vr_rooms &&
+sudo npm i &&
+sudo npm run build
 ```
 
-### Сборка проекта
+### Развёртывание Server
 ```
-cd src/apps/${APP_NAME} &&
-npm i &&
-git clone https://github.com/slavikse/${APP_NAME}.git app &&
-cd app &&
-npm i &&
-npm run build
+cd /opt &&
+sudo rm -rf game_server &&
+sudo git clone https://gitlab.int.netintel.ru/nymph/game_server.git &&
+cd game_server &&
+sudo npm i
+```
+
+### Развёртывание Client
+```
+sudo git clone https://gitlab.int.netintel.ru/nymph/vr_rooms.git &&
+cd vr_rooms &&
+sudo npm i &&
+sudo npm run build
 ```
 
 ### Настройка systemd
 ```
-echo "
+sudo nano /etc/systemd/system/nodeserver.service
+
 [Unit]
 Description=Game_Server
 
 [Service]
-ExecStart=/usr/bin/node --use-strict /opt/game_server/src/
+ExecStart=/usr/bin/node --use-strict /opt/game_server/src/ prod
 Environment=NODE_ENV=production
 Restart=always
 RestartSec=0
@@ -42,20 +76,14 @@ StandardError=syslog
 
 [Install]
 WantedBy=multi-user.target
-" > /etc/systemd/system/nodeserver.service
+```
+```
+sudo systemctl enable nodeserver.service
 ```
 
-### Запуск systemd
-```
-systemctl daemon-reload &&
-systemctl enable nodeserver.service &&
-systemctl start nodeserver.service &&
-systemctl status nodeserver.service
-```
-
-> Остановка всех Node процессов:  
-  windows: `taskkill /F /IM node.exe`  
-  linux: `pkill node`
+> Остановка всех Node процессов:
+  * windows: `taskkill /F /IM node.exe`
+  * linux: `sudo pkill node`
 
 ### Статистика
 ```
@@ -63,5 +91,5 @@ htop
 ```
 
 ### License
-[MIT](LICENSE) Copyright (c)  
+[MIT](LICENSE) Copyright (c)
 2019 - по настоящее время, Лебедев Вячеслав Викторович
